@@ -11,7 +11,7 @@ public class RateBLL {
 
 	private static RateDAL _RateDAL = new RateDAL();
 	
-	static double getRate(int GivenCreditScore) throws RateException 
+	public static double getRate(int GivenCreditScore) throws RateException 
 	{
 		double dInterestRate = 0;
 		
@@ -29,7 +29,22 @@ public class RateBLL {
 		
 		ArrayList<RateDomainModel> rates = RateDAL.getAllRates();
 		
-
+		for(int i = 1; i<rates.size();i++){
+			if(GivenCreditScore < rates.get(i).getiMinCreditScore()){
+				if(GivenCreditScore < rates.get(1).getiMinCreditScore()){//if it is below the lowest minimum
+					RateDomainModel badRate = rates.get(i);
+					throw new RateException(badRate);//throw an exception with the credit score below the minimum
+				}
+				else
+					dInterestRate = rates.get(i-1).getdInterestRate();
+			}
+		
+		}
+		
+		if(dInterestRate == 0){
+			//must have been the best rate
+			dInterestRate = rates.get(rates.size()-1).getdInterestRate();
+		}
 		//TODO: Filter the ArrayList...  look for the correct rate for the given credit score.
 		//	Easiest way is to apply a filter using a Lambda function.
 		//
