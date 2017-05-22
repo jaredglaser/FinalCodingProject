@@ -65,7 +65,7 @@ public class MortgageController implements Initializable {
 		double payment = lRequest.getdPayment();
 		//round it
 		payment = Math.round(payment * 100.0) / 100.0;
-		System.out.println(payment);
+		
 
 
 		double incomePerMonth = lRequest.getIncome()/12;

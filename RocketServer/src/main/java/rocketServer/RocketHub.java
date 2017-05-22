@@ -37,17 +37,8 @@ public class RocketHub extends Hub {
 			if(goodRate){
 				//Determine payment with rate,iTerm(in years)*12, Value of home - down payment, $0, false
 				lq.setdPayment(Math.abs(RateBLL.getPayment(rate*.01/12, lq.getiTerm()*12, lq.getdAmount(), 0, false)));
-				System.out.println(Math.abs(RateBLL.getPayment(rate*.01/12, lq.getiTerm()*12, lq.getdAmount()-lq.getiDownPayment(), 0, false)));
-				//	TODO - RocketHub.messageReceived
-
-				//	You will have to:
-				//	Determine the rate with the given credit score (call RateBLL.getRate)
-				//		If exception, show error message, stop processing
-				//		If no exception, continue
-				//	Determine if payment, call RateBLL.getPayment
-				//	
-				//	you should update lq, and then send lq back to the caller(s)
-
+		
+				
 				sendToAll(lq);
 			}
 		}
